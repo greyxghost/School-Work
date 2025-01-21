@@ -2,6 +2,8 @@
 // Description: This script generates random passwords based on user-specified options.
 // Author: Chris M
 
+// Adding Comment to test
+
 //import the 'process' module to access command-line arguments.
 //extract arguments passed by the user
 const process = require("process");
