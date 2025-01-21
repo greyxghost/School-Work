@@ -23,10 +23,12 @@ function generatePassword() {
   let password = "";
   let length = 8;
 
+  //setup the loop so password has 8 characters
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * charDefault.length);
     password += charDefault[randomIndex];
   }
+  //returns generated password from function
   return password
 }
 
