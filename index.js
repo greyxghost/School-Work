@@ -8,13 +8,56 @@ const process = require("process");
 const arguments = process.argv.slice(2);
 const userChoice = arguments[0];
 
-//setup help arguments and help function for user
+// function to display help information for the user
+function userHelp() {
+  console.log(`
+    Welcome! This program helps you generate a random password based on the options you provide.
+
+    By default, the password length is set to 8 lowercase characters. It can be longer but not shorter.
+
+    How to Use:
+    1. Open your terminal and navigate to the correct directory where "index.js" and "package.json" are located.
+    2. Run the program using the following command:
+    
+       node index.js 
+
+    Available Flags:
+    
+      --help                   Displays this help message.
+            ex: node index.js --help
+      
+      --length <number>        Sets the password length. Replace <number> with how long you want your password to be.
+            ex: node index.js --length 12
+     
+      --symbols                Adds random symbols (e.g., !@#$%^&*) to your password.
+            ex: node index.js --length 12 --symbols
+
+    Examples:
+    
+       node index.js --length 12
+       → Generates a 12-character password using lowercase letters by default.
+       
+       node index.js --length 16 --symbols
+       → Generates a 16-character password that includes symbols.
+
+    Notes:
+    - You can combine multiple flags to customize your password.
+    - If no flags are provided, the password defaults to 8 lowercase characters.
+
+    `);
+}
 
 //--help        >> displays help information
 //--length      >> setup for password length
 //--numbers     >> setup numbers in the password
 //--symbols     >> setup symbols for password
 //--uppercase   >> setup uppercase for password
+
+//check for the --help flag before running the password generator
+if (arguments.includes("--help")) {
+    userHelp();
+    process.exit(0); // Exit after showing help
+  }
 
 //setup function: generatePassword
 function generatePassword() {
@@ -29,12 +72,8 @@ function generatePassword() {
     password += charDefault[randomIndex];
   }
   //returns generated password from function
-  return password
+  return password;
 }
-
-//generates a random password based on user input options.
-//default: Generate an 8-character password with lowercase letters.
-//customizable: Add options for length, uppercase, numbers, and symbols.
 
 //call function to set password
 const password = generatePassword();
