@@ -49,10 +49,7 @@ function userHelp() {
     `);
 }
 
-//--help        >> displays help information
-//--length      >> setup for password length
 //--numbers     >> setup numbers in the password
-//--symbols     >> setup symbols for password
 //--uppercase   >> setup uppercase for password
 
 //check for the --help flag before running the password generator
@@ -68,6 +65,7 @@ function generatePassword() {
   let password = "";
   let length = 8;
 
+  //if a user uses [--symbols] it updates the default characters with additional symbols
   if (cliArgs.includes("--symbols")) {
     charDefault += "!@#$%^&*()_+[]{}<>?/|\\";
   }
