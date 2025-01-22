@@ -1,4 +1,4 @@
-// QAP1-AJS: Password Generator
+// QAP1-Fullstack JS: Password Generator
 // Description: This script generates random passwords based on user-specified options.
 // Author: Chris M
 
