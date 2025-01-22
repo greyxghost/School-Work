@@ -2,15 +2,13 @@
 // Description: This script generates random passwords based on user-specified options.
 // Author: Chris M
 
-// Adding Comment to test
-
-//import the 'process' module to access command-line arguments.
-//extract arguments passed by the user
+// Import the 'process' module to access command-line arguments.
+// Extract arguments passed by the user.
 const process = require("process");
 const cliArgs = process.argv.slice(2);
 const userChoice = cliArgs[0];
 
-// function to display help information for the user
+// Function to display help information for the user.
 function userHelp() {
   console.log(`
     Welcome! This program helps you generate a random password based on the options you provide.
@@ -48,58 +46,58 @@ function userHelp() {
 
     `);
 }
-//--uppercase   >> setup uppercase for password
+// --uppercase   >> Setup uppercase for the password.
 
-//check for the --help flag before running the password generator
+// Check for the --help flag before running the password generator.
 if (cliArgs.includes("--help")) {
   userHelp();
-  process.exit(0); // Exit after showing help
+  process.exit(0); // Exit after showing help.
 }
 
-//setup function: generatePassword
+// Setup function: generatePassword.
 function generatePassword() {
-  //set available characters, length and set password to empty.
+  // Set available characters, length, and set password to empty.
   let charDefault = "abcdefghijklmnopqrstuvwxyz";
   let password = "";
   let length = 8;
 
-  // Check if the user provided --length and a number after it
+  // Check if the user provided --length and a number after it.
   const passwordLengthIndex = cliArgs.indexOf("--length");
   if (passwordLengthIndex !== -1 && cliArgs[passwordLengthIndex + 1]) {
     length = parseInt(cliArgs[passwordLengthIndex + 1], 10);
 
-    //checks to make sure a number is valid, such as asd[isNAN] or -12[isNAN]
+    // Checks to make sure a number is valid, such as asd[isNaN] or -12[isNaN].
     if (!isNaN(length) && length > 0 && Number.isInteger(length)) {
       length = length;
     } else {
-      console.log("Length not valid, defaulting to 8 letter password");
+      console.log("Length not valid, defaulting to an 8-letter password.");
       length = 8;
     }
   }
 
-  //if a user uses [--symbols] it updates the default characters with additional symbols
+  // If a user uses [--symbols], it updates the default characters with additional symbols.
   if (cliArgs.includes("--symbols")) {
     charDefault += "!@#$%^&*()_+[]{}<>?/|\\";
   }
 
-  //if a user uses [--numbers] it updates the default characters with additional numbers
+  // If a user uses [--numbers], it updates the default characters with additional numbers.
   if (cliArgs.includes("--numbers")) {
     charDefault += "0123456789";
   }
 
-  //setup the loop so password has 8 characters
+  // Setup the loop so the password has 8 characters.
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * charDefault.length);
     password += charDefault[randomIndex];
   }
-  //returns generated password from function
+  // Returns the generated password from the function.
   return password;
 }
 
-//call function to set password
+// Call function to set the password.
 const password = generatePassword();
 
-//welcome message to confirm the script is running and your password is generated.
+// Welcome message to confirm the script is running and that your password is generated.
 console.log("");
 console.log("Welcome to the Password Generator!");
 console.log(`Here is your new generated password: ${password}`);
