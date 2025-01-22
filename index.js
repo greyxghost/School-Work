@@ -8,7 +8,7 @@
 //extract arguments passed by the user
 const process = require("process");
 const cliArgs = process.argv.slice(2);
-const userChoice = arguments[0];
+const userChoice = cliArgs[0];
 
 // function to display help information for the user
 function userHelp() {
@@ -64,6 +64,12 @@ function generatePassword() {
   let charDefault = "abcdefghijklmnopqrstuvwxyz";
   let password = "";
   let length = 8;
+
+  // Check if the user provided --length and a number after it
+  const passwordLengthIndex = cliArgs.indexOf("--length");
+  if (passwordLengthIndex !== -1 && cliArgs[passwordLengthIndex + 1]) {
+    length = parseInt(cliArgs[passwordLengthIndex + 1], 10);
+  }
 
   //if a user uses [--symbols] it updates the default characters with additional symbols
   if (cliArgs.includes("--symbols")) {
