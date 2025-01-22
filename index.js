@@ -7,7 +7,7 @@
 //import the 'process' module to access command-line arguments.
 //extract arguments passed by the user
 const process = require("process");
-const arguments = process.argv.slice(2);
+const cliArgs = process.argv.slice(2);
 const userChoice = arguments[0];
 
 // function to display help information for the user
@@ -56,17 +56,21 @@ function userHelp() {
 //--uppercase   >> setup uppercase for password
 
 //check for the --help flag before running the password generator
-if (arguments.includes("--help")) {
-    userHelp();
-    process.exit(0); // Exit after showing help
-  }
+if (cliArgs.includes("--help")) {
+  userHelp();
+  process.exit(0); // Exit after showing help
+}
 
 //setup function: generatePassword
 function generatePassword() {
   //set available characters, length and set password to empty.
-  const charDefault = "abcdefghijklmnopqrstuvwxyz";
+  let charDefault = "abcdefghijklmnopqrstuvwxyz";
   let password = "";
   let length = 8;
+
+  if (cliArgs.includes("--symbols")) {
+    charDefault += "!@#$%^&*()_+[]{}<>?/|\\";
+  }
 
   //setup the loop so password has 8 characters
   for (let i = 0; i < length; i++) {
