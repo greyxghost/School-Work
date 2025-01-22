@@ -48,8 +48,6 @@ function userHelp() {
 
     `);
 }
-
-//--numbers     >> setup numbers in the password
 //--uppercase   >> setup uppercase for password
 
 //check for the --help flag before running the password generator
@@ -69,11 +67,24 @@ function generatePassword() {
   const passwordLengthIndex = cliArgs.indexOf("--length");
   if (passwordLengthIndex !== -1 && cliArgs[passwordLengthIndex + 1]) {
     length = parseInt(cliArgs[passwordLengthIndex + 1], 10);
+
+    //checks to make sure a number is valid, such as asd[isNAN] or -12[isNAN]
+    if (!isNaN(length) && length > 0 && Number.isInteger(length)) {
+      length = length;
+    } else {
+      console.log("Length not valid, defaulting to 8 letter password");
+      length = 8;
+    }
   }
 
   //if a user uses [--symbols] it updates the default characters with additional symbols
   if (cliArgs.includes("--symbols")) {
     charDefault += "!@#$%^&*()_+[]{}<>?/|\\";
+  }
+
+  //if a user uses [--numbers] it updates the default characters with additional numbers
+  if (cliArgs.includes("--numbers")) {
+    charDefault += "0123456789";
   }
 
   //setup the loop so password has 8 characters
